@@ -22,7 +22,7 @@ typedef struct flags
  * struct printHandler - struct to choose the right function depending
  * on the format specifier passed to printf()
  * @c: format specifier
- * * @f: pointer to the correct printing function
+ * @f: pointer to the correct printing function
  */
 typedef struct printHandler
 {
