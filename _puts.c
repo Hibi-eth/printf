@@ -10,6 +10,6 @@ int _puts(char *str)
 	register int i;
 
 	for (i = 0; str[i] != '\0'; i++)
-		_write_char(str[i]);
+		_putchar(str[i]);
 	return (i);
 }
