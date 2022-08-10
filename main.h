@@ -9,12 +9,12 @@
 /**
  * struct convert - defines a structure for symbols and functions
  * on the format specifier passed to printf()
- * @c: format specifier
+ * @sym: The operator
  * @f: pointer to the correct printing function
  */
 struct convert
 {
-	char *c;
+	char *sym;
 	int (*f)(va_list);
 };
 typedef struct convert conver_t;
