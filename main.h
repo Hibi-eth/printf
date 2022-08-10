@@ -62,5 +62,6 @@ int print_address(va_list l, flags_t *f);
 
 int print_percent(va_list l, flags_t *f);
 int parser(const char *format, conver_t f_list[], va_list arg_list);
+int _write_char(char c);
 
 #endif
