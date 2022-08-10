@@ -3,82 +3,102 @@
 /**
  * print_int - prints an integer
  * @l: va_list of arguments from _printf
- * @f: pointer to the struct flags determining
- * if a flag is passed to _printf
  * Return: number of char printed
  */
-int print_int(va_list l, flags_t *f)
+int print_int(va_list l)
 {
-	int n = va_arg(l, int);
-	int res = count_digit(n);
-
-	if (f->space == 1 && f->plus == 0 && n >= 0)
-		res += _putchar(' ');
-	if (f->plus == 1 && n >= 0)
-		res += _putchar('+');
-	if (n <= 0)
-		res++;
-	print_number(n);
-	return (res);
+	int num_length = print_number(l);
+	return (num_length);
 }
 
 /**
  * print_unsigned - prints an unsigned integer
  * @l: va_list of arguments from _printf
- * @f: pointer to the struct flags determining
- * if a flag is passed to _printf
  * Return: number of char printed
  */
-int print_unsigned(va_list l, flags_t *f)
+int print_unsigned(va_list l)
 {
 	unsigned int u = va_arg(l, unsigned int);
-	char *str = convert(u, 10, 0);
+	if (num == 0)
+		return (print_unsgined_number(num));
 
-	(void)f;
-	return (_puts(str));
+	if (num < 1)
+		return (-1);
+	return (print_unsgined_number(num));
 }
+
 
 /**
  * print_number - helper function that loops through
- * an integer and prints all its digits
- * @n: integer to be printed
+ * @args: List of arguments
+ * Return: The number of arguments printed
  */
-void print_number(int n)
+int print_number(va_list args)
 {
-	unsigned int n1;
+	int n;
+	int div;
+	int len;
+	unsigned int num;
+
+	n  = va_arg(args, int);
+	div = 1;
+	len = 0;
 
 	if (n < 0)
 	{
-		_putchar('-');
-		n1 = -n;
+		len += _write_char('-');
+		num = n * -1;
 	}
 	else
-		n1 = n;
+		num = n;
 
-	if (n1 / 10)
-		print_number(n1 / 10);
-	_putchar((n1 % 10) + '0');
+	for (; num / div > 9; )
+		div *= 10;
+
+	for (; div != 0; )
+	{
+		len += _write_char('0' + num / div);
+		num %= div;
+		div /= 10;
+	}
+	return (len);
+}
+/**
+ * print_unsgined_number - Prints an unsigned number
+ * @n: unsigned integer to be printed
+ * Return: The amount of numbers printed
+ */
+int print_unsgined_number(unsigned int n)
+{
+	int div;
+	int len;
+	unsigned int num;
+
+	div = 1;
+	len = 0;
+
+	num = n;
+
+	for (; num / div > 9; )
+		div *= 10;
+
+	for (; div != 0; )
+	{
+		len += _write_char('0' + num / div);
+		num %= div;
+		div /= 10;
+	}
+
+	return (len);
 }
 
 /**
- * count_digit - returns the number of digits in an integer
- * for _printf
- * @i: integer to evaluate
- * Return: number of digits
+ * print_percent - Prints a percent symbol
+ * @list: list of arguments
+ * Return: Will return the amount of characters printed.
  */
-int count_digit(int i)
+int print_percent(__attribute__((unused))va_list l)
 {
-	unsigned int d = 0;
-	unsigned int u;
-
-	if (i < 0)
-		u = i * -1;
-	else
-		u = i;
-	while (u != 0)
-	{
-		u /= 10;
-		d++;
-	}
-	return (d);
+	_write_char('%');
+	return (l);
 }
