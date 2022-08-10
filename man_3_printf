@@ -1,0 +1,6 @@
+.TH man 3 "10 August 2022"ALX SCHOOL " "_PRINTF"
+.SH NAME
+.B _printf
+- formatted output conversion
+.SH SYNOPSIS
+
