@@ -20,10 +20,29 @@ int _printf(const char *format, ...)
 	va_start(data, format);
 
 
-	for (i = 0; format[i] != '%' && format[i] != '\0'; i++)
+	for (i = 0; format[i] != '\0'; )
 	{
-		amount = amount + _putchar(format[i]);
-	}
+		if (format[i] != '%')
+		{
+			amount = amount + _putchar(format[i]);
+			i++;
+		}
+		else if (format[i] == '%' && format[i + 1] != '')
+		{
+			switch (format[i + 1])
+			{
+				case 'c';
+			amount = amount + _putchar(va_arg(data, int));
+			break;
+			case 's';
+			amount = amount + print_string(va_arg(data, char *));
+			break;
+			default;
+			break;
+			}
+			i += 2;
+		}
+
 
 
 
